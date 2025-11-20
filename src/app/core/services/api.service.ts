@@ -1,15 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID, TransferState, makeStateKey } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap, of } from 'rxjs';
+import { isPlatformServer, isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
   //precisa ser colocado em um appsettings da vida idealmente
-  private baseUrl = 'https://localhost:5001/api';
+  private baseUrl = 'https://localhost:7125/api';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private transferState: TransferState,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   //GET
   ////get sem parametros
@@ -30,7 +35,23 @@ export class ApiService {
 
     const url = this.buildUrl(controller, action);
     const httpParams = this.buildParams(params);
-    return this.http.get<T>(url, { params: httpParams });
+    //SSR
+    const key = makeStateKey<T>(`GET:${url}?${httpParams.toString()}`);
+
+    if (isPlatformBrowser(this.platformId)) {
+      const cached = this.transferState.get<T>(key, null as any);
+      if (cached) {
+        return of(cached);
+      }
+    }
+
+    return this.http.get<T>(url, { params: httpParams }).pipe(
+      tap((res) => {
+        if (isPlatformServer(this.platformId)) {
+          this.transferState.set(key, res);
+        }
+      })
+    );
   }
 
   //POST

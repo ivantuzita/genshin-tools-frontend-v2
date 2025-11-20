@@ -1,0 +1,23 @@
+<section class="user-character-card bg-white shadow-xl rounded-xl p-8 w-full max-w-6xl mx-auto">
+  <div class="card-header mb-6">
+    <span class="card-title text-3xl font-semibold text-gray-800">
+      Your Weapons
+    </span>
+  </div>
+
+  <div class="card-body">
+    <div class="weapon-carousel flex gap-4 overflow-x-auto py-2">
+      @for (wp of weapons; track $index) {
+      <div
+        class="weapon-item min-w-[120px] bg-gray-50 border border-gray-300 rounded-xl p-4 flex flex-col items-center">
+        <img [src]="wp.pictureURL" alt="{{ wp.name }}" class="w-16 h-16 object-cover rounded-lg" />
+        <span class="mt-2 font-medium text-gray-700 text-center text-sm">
+          {{ wp.name }}
+        </span>
+      </div>
+      } @empty {
+      <p class="text-gray-500 italic">No weapons available.</p>
+      }
+    </div>
+  </div>
+</section>
