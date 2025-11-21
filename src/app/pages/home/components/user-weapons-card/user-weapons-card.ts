@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Weapon } from '../../../../models/weapon/weapon.model';
-import { ApiService } from '../../../../core/services/api.service';
+import { ApiService } from '../../../../core/services/api/api.service';
 
 @Component({
   selector: 'app-user-weapons-card',

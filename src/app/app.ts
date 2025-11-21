@@ -9,5 +9,6 @@ import { Navbar } from './shared/components/navbar/navbar';
   styleUrl: './app.scss'
 })
 export class App {
+  isOpen = true;
   protected readonly title = signal('genshin-tools-frontend-v2');
 }
