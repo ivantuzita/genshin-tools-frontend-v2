@@ -10,7 +10,7 @@ import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { ApiService } from './core/services/api/api.service';
 import { IconService } from './core/services/icon/icon.service';
-import { loadIcons } from './core/config/load-icons';
+import { loadIcons } from './core/config/icons/load-icons';
 import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {

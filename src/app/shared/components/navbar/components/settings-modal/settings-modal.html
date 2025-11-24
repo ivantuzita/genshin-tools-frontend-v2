@@ -1,14 +1,54 @@
 <section class="settings-modal">
   <div class="card absolute rounded-xl w-[300px] bg-gray-100 shadow-lg fixed z-30" [style.top.px]="position.top"
     [style.right.px]="position.right">
-    <div class=" card-header bg-white w-full border-b border-black/20 px-6 py-3 rounded-t-xl">
+    <div class="card-header bg-white w-full border-b border-black/20 px-6 py-3 rounded-t-xl">
       <div class="card-title text-xl font-semibold text-gray-800">
         Settings
       </div>
     </div>
-    <div class="card-body p-6">
-      <!-- dropdown -->
-      teste
+    <div class="card-body pl-6 pr-6 pb-6 pt-3">
+      <div class="form-row flex flex-col">
+        <span class="identifier mb-2 text-sm">
+          Language
+        </span>
+        <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
+          class="inline-flex px-4 items-center justify-between bg-gray-200 border-transparent hover:bg-gray-300 shadow-xs rounded-md text-sm py-2.5 focus:outline-none w-full cursor-pointer"
+          type="button" (click)="onDropdownClick()">
+          <div class="selected-language flex flex-row gap-x-2 items-center ">
+            <span class="icon-flag h-6 w-6" [innerHTML]="selectedLanguage?.iconHtml">
+            </span>
+            <span class="language-name">
+              {{ selectedLanguage?.label }}
+            </span>
+          </div>
+          <svg class="w-4 h-4 ms-1.5 -me-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+            height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="m19 9-7 7-7-7" />
+          </svg>
+        </button>
+
+        <!-- Dropdown menu -->
+        <div id="dropdown"
+          class="z-10 {{dropdownState}} bg-gray-100 border-b border-black/20 rounded shadow-lg w-44 w-full">
+          <ul class="p-2 text-sm text-body font-medium" aria-labelledby="dropdownDefaultButton">
+            @for (language of languages; track $index) {
+            <li>
+              <button class="inline-flex items-center w-full p-2 hover:bg-gray-200 rounded cursor-pointer"
+                (click)="onLanguageChange(language)">
+                <div class="selected-language flex flex-row gap-x-2 items-center ">
+                  <span class="icon-flag h-6 w-6" [innerHTML]="language.iconHtml">
+                  </span>
+                  <span class="language-name">
+                    {{ language.label }}
+                  </span>
+                </div>
+              </button>
+            </li>
+            }
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </section>

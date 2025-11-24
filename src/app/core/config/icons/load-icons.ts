@@ -1,10 +1,16 @@
 import { firstValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { IconService } from '../services/icon/icon.service';
+import { IconService } from '../../services/icon/icon.service';
 
 export function loadIcons(http: HttpClient, iconService: IconService): Promise<void[]> {
-
-  const iconsToLoad = ['navbar/navbar-paimon', 'navbar/navbar-account', 'navbar/navbar-gear'];
+  const iconsToLoad = [
+    'navbar/navbar-paimon',
+    'navbar/navbar-account',
+    'navbar/navbar-gear',
+    'navbar/en-flag',
+    'navbar/br-flag',
+    'navbar/jp-flag',
+  ]; //MOVER PRA UM CONFIG DA VIDA
 
   const requests = iconsToLoad.map(async (name) => {
     try {
